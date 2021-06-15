@@ -4,42 +4,54 @@ import {
   StyleSheet,
   Text,
   Button,
-  TouchableWithoutFeedback,
-  Keyboard,
+  TouchableWithoutFeedback, //All these are components
+  Keyboard, //API
+  Alert, //object
 } from "react-native";
 
 import Card from "../components/Card";
 import colors from "../constants/colors";
 import Input from "../components/input";
+import NumberContainer from "../components/numberContainer";
 
 export default function startGameScreen() {
   const [enteredValue, setEnteredValue] = useState("");
-  const [confirmed, setConfirmed] = useState(false)
-  const [selectedNumber ,setSelectedNumber] = useState()
+  const [confirmed, setConfirmed] = useState(false);
+  const [selectedNumber, setSelectedNumber] = useState();
 
   const numberInputHandler = (inputText) => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ""));
   };
 
-  const resetButtonHandler = ()=>{
-    setEnteredValue('');
+  const resetButtonHandler = () => {
+    setEnteredValue("");
     setConfirmed(false);
   };
 
-  const confirmButtonHandler = ()=>{
-    const choosenNumber = parseInt(enteredValue)
-    if(choosenNumber== NaN || choosenNumber >99 || choosenNumber <=0){
+  const confirmButtonHandler = () => {
+    const choosenNumber = parseInt(enteredValue);
+    if (isNaN(choosenNumber) || choosenNumber > 99 || choosenNumber <= 0) {
+      Alert.alert("Invalid Number!", "Must a number between 0 and 100", [
+        { text: "okay", style: "destructive" },
+      ]);
       return;
     }
     setConfirmed(true);
-    setEnteredValue('');
-    setSelectedNumber(choosenNumber)
-  }
+    setEnteredValue("");
+    setSelectedNumber(choosenNumber);
+    Keyboard.dismiss();
+  };
 
   let confirmedOutput;
 
-  if(confirmed){
-    confirmedOutput = <Text>Choosen Value={selectedNumber}</Text>
+  if (confirmed) {
+    confirmedOutput = (
+      <Card style={styles.summaryContainer}>
+        <Text>You Selected</Text>
+        <NumberContainer>{selectedNumber}</NumberContainer>
+        <Button title="start Game"/>
+      </Card>
+    );
   }
 
   return (
@@ -62,7 +74,11 @@ export default function startGameScreen() {
           />
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button title="Reset" onPress={resetButtonHandler} color={colors.accent} />
+              <Button
+                title="Reset"
+                onPress={resetButtonHandler}
+                color={colors.accent}
+              />
             </View>
             <View style={styles.button}>
               <Button
@@ -73,6 +89,7 @@ export default function startGameScreen() {
             </View>
           </View>
         </Card>
+
         {confirmedOutput}
       </View>
     </TouchableWithoutFeedback>
@@ -107,4 +124,8 @@ const styles = StyleSheet.create({
     width: 100,
     textAlign: "center",
   },
+  summaryContainer:{
+    marginTop:20,
+    alignItems:'center'
+  }
 });
