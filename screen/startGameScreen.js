@@ -19,6 +19,10 @@ export default function startGameScreen() {
     setEnteredValue(inputText.replace(/[^0-9]/g, ""));
   };
 
+  const resetButtonHandler = ()=>{
+    setEnteredValue('');
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -39,7 +43,7 @@ export default function startGameScreen() {
           />
           <View style={styles.buttonContainer}>
             <View style={styles.button}>
-              <Button title="Reset" onPress={() => {}} color={colors.accent} />
+              <Button title="Reset" onPress={resetButtonHandler} color={colors.accent} />
             </View>
             <View style={styles.button}>
               <Button
