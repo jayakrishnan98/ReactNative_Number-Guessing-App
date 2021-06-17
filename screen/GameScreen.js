@@ -27,7 +27,9 @@ export default function GameScreen(props) {
       (direction === "Lower" && currentGuess < props.userChoice) ||
       (direction === "Greater" && currentGuess > props.userChoice)
     ) {
-      Alert.alert("Dont Lie","You know it's wrong", [{ text: "Sorry", style: "cancel" }]);
+      Alert.alert("Dont Lie", "You know it's wrong", [
+        { text: "Sorry", style: "cancel" },
+      ]);
       return;
     }
     if (direction === "Lower") {
