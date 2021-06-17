@@ -10,11 +10,11 @@ import {
 } from "react-native";
 
 import Card from "../components/Card";
-import colors from "../constants/colors";
-import Input from "../components/input";
-import NumberContainer from "../components/numberContainer";
+import colors from "../constants/Colors";
+import Input from "../components/Input";
+import NumberContainer from "../components/NumberContainer";
 
-export default function startGameScreen() {
+export default function StartGameScreen(props) {
   const [enteredValue, setEnteredValue] = useState("");
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
@@ -49,7 +49,8 @@ export default function startGameScreen() {
       <Card style={styles.summaryContainer}>
         <Text>You Selected</Text>
         <NumberContainer>{selectedNumber}</NumberContainer>
-        <Button title="start Game"/>
+        <Button title="start Game" onPress={()=>{props.onStartGame(selectedNumber)}}/>
+
       </Card>
     );
   }
