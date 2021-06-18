@@ -1,11 +1,13 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
+
 import Colors from "../constants/Colors";
+import TitleText from "./TitleText";
 
 export default function Header(props) {
   return (
     <View style={styles.header}>
-      <Text style={styles.headertitle}>Guess The Number</Text>
+      <TitleText style={styles.headertitle}>Guess The Number</TitleText>
     </View>
   );
 }
@@ -20,7 +22,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   headertitle: {
-    color: "white",
-    fontSize: 18,
+    color: "white"
   },
 });
